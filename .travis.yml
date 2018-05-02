@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- node
+- lts/*
+- 6
+cache: yarn
+before_install:
+- yarn global add greenkeeper-lockfile@1
+- yarn global add codecov
+before_script: greenkeeper-lockfile-update
+after_script: greenkeeper-lockfile-upload
+after_success:
+- codecov
+notifications:
+  slack:
+    secure: O8Kq982N8IIuoyQM/zjRrZmv3hrr5gpHFATScNLTOvicIbJI3H9F5ymA8yEpG5d7VnbNvp8LrbJ2gWWKkbcpyzBxj0LIlioFyWzF8Zp3b7yx8CIk3K0cVqhvrUFNc+E9U0cVm78v0Ul4XMjmElFdIsDUyrw39heIVDjZ2+HCg7IgkHT1ZFTgrDfaL0JrydCuKnaLVlrqZirVpqE1n0LTYtACbVrDM1x5NhkQ++qg7/2XjphYccFvbMA/OLWeDYQQrDFyx9DmYq0/SfsXcM7txKhlrRSXKHeiF2Hps6eDeYh0QGp4WslLQ1qr50T1cfYTAgB0oAyXbQ2fGcfjDJigSQ/qy649U8/gTFXtiSTm2f65HWmcuqcEFX3j18Wk13wuhJdKTzx/ColydV/A0ye08VoD4ULJ6/4oZkA3GznQ9YK0q3p+JeywPZuSIaPgyWWHjEsc1KEshQUw8e1dkmGOQ8WkICmXASuw0WYrzLoiOsmI4k2D7LoTBVJVDa5LBVttfroMj4CjdXt18v7tW7wzxQVesJ2RzkcgPO72aGPLwt11bFB0s1nBTEwYxG8H8blx+jvEwLzbidBQQP3H6Z3X6w1zY0mQNSPl4r8DpBwQ4AAF1gD29bGHTl6QR03v5Vhl36LuGaB/Iz9/f3fBhWULe+hQZloAEbvvcVoCUiirI1A=

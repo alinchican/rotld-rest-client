@@ -1,0 +1,34 @@
+{
+  "name": "rotld-rest-client",
+  "version": "0.0.1",
+  "main": "index.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "yarn lint",
+    "test": "jest",
+    "prepack": "yarn test"
+  },
+  "dependencies": {
+    "regenerate": "^1.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "jest": "^22.4.3",
+    "prettier": "^1.12.1"
+  },
+  "repository": "alinchican/rotld-rest-client",
+  "bugs": "https://github.com/alinchican/rotld-rest-client/issues",
+  "description": "REST client for RoTLD (Romania Top Level Domain) REST API.",
+  "license": "MIT",
+  "keywords": [
+    "rotld"
+  ],
+  "author": "Alin Chican <alin@chican.ro> (https://chican.ro/)"
+}

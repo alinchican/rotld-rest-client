@@ -1,0 +1,11 @@
+.DS_Store
+node_modules
+coverage
+__mocks__
+__tests__
+.editorconfig
+.eslint*
+.travis.yml
+yarn.lock
+codecov.yml
+jest.config.js
