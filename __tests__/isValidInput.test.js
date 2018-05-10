@@ -4,10 +4,10 @@ test("should throw without argument", () => {
   expect(() => isValidInput()).toThrow();
 });
 
-test("should return true on valid strings", () => {
+test("should return true with valid characters", () => {
   expect(isValidInput("¢evașpecial")).toBe(true);
 });
 
-test("should return false on domain without Romanian tld", () => {
-  expect(isValidInput("¢evaƒin.com")).toBe(false);
+test("should return false with invalid characters", () => {
+  expect(isValidInput("¢evaƒin")).toBe(false);
 });
