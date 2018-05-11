@@ -480,6 +480,10 @@ camelcase@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
+camelcase@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.0.0.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
+
 caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
@@ -2911,6 +2915,13 @@ rimraf@^2.2.8, rimraf@^2.5.4, rimraf@^2.6.1:
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.6.2.tgz#2ed8150d24a16ea8651e6d6ef0f47c4158ce7a36"
   dependencies:
     glob "^7.0.5"
+
+rotld-toolbox@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/rotld-toolbox/-/rotld-toolbox-2.1.0.tgz#23ed0456ebe804f285a4b09d728de1ffc3b91a95"
+  dependencies:
+    camelcase "^5.0.0"
+    punycode "^2.1.0"
 
 run-async@^2.2.0:
   version "2.3.0"
