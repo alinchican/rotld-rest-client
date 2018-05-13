@@ -40,6 +40,7 @@ const inputSchema = schemaValidator
     domain_period: schemaValidator
       .number()
       .required()
+      .integer()
       .min(1)
       .max(10)
   });
