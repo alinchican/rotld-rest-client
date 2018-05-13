@@ -5,7 +5,7 @@ const isValidRoTLDCommandInput = (commandName, input) => {
     throw new TypeError("Argument must be a string.");
   }
 
-  const schema = require(`./schema/${commandName}`);
+  const schema = require(`./schema/${commandName}.schema`);
 
   schemaValidator.assert(input, schema);
 
