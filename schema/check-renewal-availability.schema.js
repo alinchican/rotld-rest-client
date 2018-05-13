@@ -10,7 +10,8 @@ const inputSchema = schemaValidator
       .required()
       .RoTLDDomainsList(),
 
-    // period [string] [mandatory]: a number between 1 and 10] which represents the number of years.
+    // period [string] [mandatory]:
+    // a number between 1 and 10] which represents the number of years.
     period: schemaValidator
       .number()
       .required()

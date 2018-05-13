@@ -5,11 +5,18 @@ const inputSchema = schemaValidator
   .required()
   .keys({
     // nameserver [string:ascii][mandatory]
-    nameserver: schemaValidator.string().required(),
+    nameserver: schemaValidator
+      .string()
+      .required()
+      .RoTLDNameserver(),
 
-    // ips[string:ascii] [mandatory]: A comma separated list of IPs. At least one valid IP is required. Maximum allowed
-    // number of IPs is 2. IP version support:IPv4 and IPv6. E.g.: 196.102.12.1, 2001:db8::1428:57ab.
-    ips: schemaValidator.string().required()
+    // ips[string:ascii] [mandatory]: A comma separated list of IPs.
+    // At least one valid IP is required. Maximum allowed number of IPs is 2.
+    // IP version support:IPv4 and IPv6. E.g.: 196.102.12.1, 2001:db8::1428:57ab.
+    ips: schemaValidator
+      .string()
+      .required()
+      .RoTLDIpList()
   });
 
 module.exports = inputSchema;

@@ -8,15 +8,61 @@ const schemaValidator = Joi.extend(joi => ({
   base: joi.string(),
   name: "string",
   language: {
-    RoTLDCountryCode: "needs to have an allowed RoTLD country code",
+    RoTLDPasswordCharacters:
+      "needs to respect RoTLD password characters requirement",
+    RoTLDCountryCode: "needs to have a valid RoTLD phone number format",
     RoTLDValidInput: "needs to have valid RoTLD input characters",
     RoTLDDomain: "needs to be a valid RoTLD domain",
     RoTLDDomainsList: "needs to be a valid RoTLD domain list",
+    RoTLDIpLIst: "needs to be a valid ip list",
     RoTLDNameserversList: "needs to be a valid nameserver list",
+    RoTLDNameserver: "needs to be a valid nameserver",
     RoTLDAlphanum: "needs to be a valid RoTLD alphanum",
-    RoTLDPersonType: "needs to be a valid person type"
+    RoTLDPersonType: "needs to be a valid RoTLD person type"
   },
   rules: [
+    {
+      name: "RoTLDPasswordCharacters",
+      validate(params, value, state, options) {
+        const oneLowercase = /[a-z]/;
+        const oneUppercase = /[A-Z]/;
+        const oneDigit = /\d/;
+        const allowedCharacters = /^[a-zA-Z \d-.,:;[\]{}_+=@#$^*?!|~]*$/;
+
+        if (
+          !value.match(oneLowercase) ||
+          !value.match(oneUppercase) ||
+          !value.match(oneDigit) ||
+          !value.match(allowedCharacters)
+        ) {
+          return this.createError(
+            "string.RoTLDCountryCode",
+            { value: value },
+            state,
+            options
+          );
+        }
+
+        return value;
+      }
+    },
+    {
+      name: "RoTLDPhoneNumber",
+      validate(params, value, state, options) {
+        const PhoneNumberRegExp = "^\\+\\d{1,3}\\.\\d{7,14}$";
+
+        if (value.length > 20 || !value.match(PhoneNumberRegExp)) {
+          return this.createError(
+            "string.RoTLDCountryCode",
+            { value: value },
+            state,
+            options
+          );
+        }
+
+        return value;
+      }
+    },
     {
       name: "RoTLDCountryCode",
       validate(params, value, state, options) {
@@ -28,6 +74,8 @@ const schemaValidator = Joi.extend(joi => ({
             options
           );
         }
+
+        return value;
       }
     },
     {
@@ -41,6 +89,8 @@ const schemaValidator = Joi.extend(joi => ({
             options
           );
         }
+
+        return value;
       }
     },
     {
@@ -98,6 +148,12 @@ const schemaValidator = Joi.extend(joi => ({
           );
         }
 
+        return value;
+      }
+    },
+    {
+      name: "RoTLDNameserver",
+      validate(params, value, state, options) { // eslint-disable-line
         return value;
       }
     },

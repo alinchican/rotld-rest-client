@@ -11,7 +11,7 @@ const romanianInputSchema = schemaValidator
     person_type: schemaValidator
       .string()
       .required()
-      .personType(),
+      .RoTLDPersonType(),
 
     // cnp_fiscal_code[string:utf-8] [mandatory]: An identification number for
     // persons (personal ID, passport number, driving license, etc),fiscal code
@@ -52,19 +52,21 @@ const foreignInputSchema = schemaValidator
       .required()
       .personType(),
 
-    // cnp_fiscal_code[string:utf-8] [mandatory]: An identification number for
-    // persons (personal ID, passport number, driving license, etc),fiscal code
-    // for companies or other unique identification number or sequence of
-    // characters for juridical entities. Mandatory for Romanian entities.
-    // Optional for foreigners. Max Length: 40 chars. Min. Length: 5 chars.
+    // cnp_fiscal_code[string:utf-8] [mandatory]:
+    // An identification number for persons (personal ID, passport number,
+    // driving license, etc),fiscal code for companies or other unique
+    // identification number or sequence of characters for juridical entities.
+    // Mandatory for Romanian entities.
+    // Optional for foreigners.
+    // Max Length: 40 chars. Min. Length: 5 chars.
     cnp_fiscal_code: schemaValidator
       .string()
       .min(5, "utf8")
       .max(40, "utf8"),
 
-    // registration_number [string:utf-8] [optional]. Mandatory for Commercial
-    // Romanian entities (where person_type is 'c'). Optional for foreigners
-    // or other Romanian entities. Max Length: 40 chars.
+    // registration_number [string:utf-8] [optional].
+    // Mandatory for Commercial Romanian entities (where person_type is 'c').
+    // Optional for foreigners or other Romanian entities. Max Length: 40 chars.
     registration_number: schemaValidator.string().max(40, "utf8")
   });
 

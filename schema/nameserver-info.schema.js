@@ -5,7 +5,10 @@ const inputSchema = schemaValidator
   .required()
   .keys({
     // nameserver [string:ascii][mandatory]
-    nameserver: schemaValidator.string().required()
+    nameserver: schemaValidator
+      .string()
+      .required()
+      .RoTLDNameserver()
   });
 
 module.exports = inputSchema;

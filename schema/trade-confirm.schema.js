@@ -5,7 +5,10 @@ const inputSchema = schemaValidator
   .required()
   .keys({
     // tid [integer] [mandatory]: a trade id
-    tid: schemaValidator.number().required()
+    tid: schemaValidator
+      .number()
+      .integer()
+      .required()
   });
 
 module.exports = inputSchema;

@@ -10,7 +10,8 @@ const inputSchema = schemaValidator
       .required()
       .RoTLDDomain(),
 
-    // authorization_key [string:alphanum] [mandatory]: the authorization key provided by the registrant
+    // authorization_key [string:alphanum] [mandatory]:
+    // the authorization key provided by the registrant
     authorization_key: schemaValidator
       .string()
       .required()
