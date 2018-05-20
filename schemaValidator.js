@@ -1,7 +1,7 @@
 const Joi = require("joi");
 const isRoTLDDomain = require("rotld-toolbox/isRoTLDDomain");
 const isValidRoTLDPersonType = require("./isValidRoTLDPersonType");
-const isValidRoTLDCommandInput = require("./isValidRoTLDCommandInput");
+const isValidRoTLDInputCharacters = require("./isValidRoTLDInputCharacters");
 const isValidRoTLDCountryCode = require("./isValidRoTLDCountryCode");
 
 const schemaValidator = Joi.extend(joi => ({
@@ -81,7 +81,7 @@ const schemaValidator = Joi.extend(joi => ({
     {
       name: "RoTLDValidInput",
       validate(params, value, state, options) {
-        if (!isValidRoTLDCommandInput(value)) {
+        if (!isValidRoTLDInputCharacters(value)) {
           return this.createError(
             "string.RoTLDValidInput",
             { value: value },
@@ -223,6 +223,13 @@ const schemaValidator = Joi.extend(joi => ({
       }
     }
   ]
-}));
+})).defaults(schema => {
+  switch (schema.schemaType) {
+    case "string":
+      return schema.RoTLDValidInput();
+    default:
+      return schema;
+  }
+});
 
 module.exports = schemaValidator;
