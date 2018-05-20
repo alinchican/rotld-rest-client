@@ -85,7 +85,7 @@ test("should throw with invalid pre validate", () => {
         username: "test",
         password: "test",
         environment: "stage",
-        preValidate: 1
+        localValidation: 1
       },
       schema
     )
@@ -128,7 +128,7 @@ test("should be undefined", () => {
         password: "test",
         environment: "test",
         allowUnsecure: true,
-        preValidate: false,
+        localValidation: false,
         format: "json",
         language: "en"
       },
