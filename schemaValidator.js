@@ -13,10 +13,10 @@ const schemaValidator = Joi.extend(joi => ({
     RoTLDCountryCode: "needs to have a valid RoTLD phone number format",
     RoTLDValidInput: "needs to have valid RoTLD input characters",
     RoTLDDomain: "needs to be a valid RoTLD domain",
+    RoTLDDomainInvalid: "needs to be a valid domain",
     RoTLDDomainsList: "needs to be a valid RoTLD domain list",
-    RoTLDIpLIst: "needs to be a valid ip list",
+    RoTLDIpList: "needs to be a valid ip list",
     RoTLDNameserversList: "needs to be a valid nameserver list",
-    RoTLDNameserver: "needs to be a valid nameserver",
     RoTLDAlphanum: "needs to be a valid RoTLD alphanum",
     RoTLDPersonType: "needs to be a valid RoTLD person type"
   },
@@ -96,9 +96,18 @@ const schemaValidator = Joi.extend(joi => ({
     {
       name: "RoTLDDomain",
       validate(params, value, state, options) {
-        if (!isRoTLDDomain(value)) {
+        try {
+          if (!isRoTLDDomain(value)) {
+            return this.createError(
+              "string.RoTLDDomain",
+              { value: value },
+              state,
+              options
+            );
+          }
+        } catch (error) {
           return this.createError(
-            "string.RoTLDDomain",
+            "string.RoTLDDomainInvalid",
             { value: value },
             state,
             options
@@ -113,8 +122,7 @@ const schemaValidator = Joi.extend(joi => ({
       validate(params, value, state, options) {
         const domainsList = value.split(",");
 
-        // TODO: Add nameserver name validation
-
+        // TODO
         if (domainsList.length > 6) {
           return this.createError(
             "string.RoTLDDomainsList",
@@ -122,6 +130,37 @@ const schemaValidator = Joi.extend(joi => ({
             state,
             options
           );
+        }
+
+        return value;
+      }
+    },
+    {
+      name: "RoTLDIpList",
+      validate(params, value, state, options) {
+        const ipList = value.split(",");
+        const ipSchema = Joi.string().ip();
+
+        if (ipList.length < 1 || ipList.length > 2) {
+          return this.createError(
+            "string.RoTLDIpList",
+            { value: value },
+            state,
+            options
+          );
+        }
+
+        for (let ip of ipList) {
+          const result = ipSchema.validate(ip);
+
+          if (result.error) {
+            return this.createError(
+              "string.RoTLDIpList",
+              { value: value },
+              state,
+              options
+            );
+          }
         }
 
         return value;
@@ -152,12 +191,6 @@ const schemaValidator = Joi.extend(joi => ({
       }
     },
     {
-      name: "RoTLDNameserver",
-      validate(params, value, state, options) { // eslint-disable-line
-        return value;
-      }
-    },
-    {
       name: "RoTLDPersonType",
       validate(params, value, state, options) {
         if (!isValidRoTLDPersonType(value)) {
@@ -175,10 +208,9 @@ const schemaValidator = Joi.extend(joi => ({
     {
       name: "RoTLDAlphanum",
       validate(params, value, state, options) {
-        // TODO: Add alphanum with - check
-        const isAlphaNum = true;
+        const RoTLDAlphanumRegExp = "^[a-zA-Z0-9-]*$";
 
-        if (!isAlphaNum) {
+        if (!value.match(RoTLDAlphanumRegExp)) {
           return this.createError(
             "string.RoTLDAlphanum",
             { value: value },
