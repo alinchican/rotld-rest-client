@@ -44,6 +44,19 @@ test("should throw with invalid domains list containing non-ascii domain names",
   ).toThrow();
 });
 
+test("should throw with invalid domains list containing too many domains", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        domains_list:
+          "xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro",
+        period: 1
+      },
+      schema
+    )
+  ).toThrow();
+});
+
 test("should throw with invalid domains list containing domain names with subdomains", () => {
   expect(() =>
     schemaValidator.assert(
