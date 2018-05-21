@@ -1,6 +1,10 @@
 const schemaValidator = require("../../schemaValidator");
 const schema = require("../command-check-balance.schema");
 
+test("should return undefined without argument", () => {
+  expect(schemaValidator.assert(undefined, schema)).toBeUndefined();
+});
+
 test("should throw on invalid argument", () => {
   expect(() => schemaValidator.assert([2], schema)).toThrow();
 });

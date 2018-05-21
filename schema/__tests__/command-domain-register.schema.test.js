@@ -5,12 +5,12 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
-  expect(() => schemaValidator.assert(1, schema)).toThrow();
-});
-
 test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
+});
+
+test("should throw on invalid argument", () => {
+  expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
 test("should throw with invalid domain variable type", () => {

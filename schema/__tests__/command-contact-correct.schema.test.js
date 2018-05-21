@@ -5,6 +5,10 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
+test("should throw on empty argument", () => {
+  expect(() => schemaValidator.assert({}, schema)).toThrow();
+});
+
 test("should throw with invalid cid variable type", () => {
   expect(() =>
     schemaValidator.assert(
