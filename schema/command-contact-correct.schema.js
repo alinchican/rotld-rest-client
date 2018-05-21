@@ -21,22 +21,12 @@ const inputSchema = schemaValidator
     cnp_fiscal_code: schemaValidator
       .string()
       .min(5, "utf8")
-      .max(40, "utf8")
-      .when("person_type", {
-        is: schemaValidator.valid("p", "ap", "j", "c"),
-        then: schemaValidator.required()
-      }),
+      .max(40, "utf8"),
 
     // registration_number [string:utf-8] [optional]. Mandatory for Commercial
     // Romanian entities (where person_type is 'c'). Optional for foreigners
     // or other Romanian entities. Max Length: 40 chars.
-    registration_number: schemaValidator
-      .string()
-      .max(40, "utf8")
-      .when("person_type", {
-        is: "c",
-        then: schemaValidator.required()
-      })
+    registration_number: schemaValidator.string().max(40, "utf8")
   });
 
 module.exports = inputSchema;

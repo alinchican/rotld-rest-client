@@ -15,7 +15,7 @@ const inputSchema = schemaValidator
 
     // address1 [string:utf-8] [mandatory]:
     // Max Length: 128 chars. Min. Length: 1 char.
-    address: schemaValidator
+    address1: schemaValidator
       .string()
       .required()
       .min(1, "utf8")
@@ -79,17 +79,14 @@ const inputSchema = schemaValidator
     // fax[string:ascii] [optional]:
     // Mandatory format: same as the phone number format.
     // Max Length: 20 chars.
-    fax: schemaValidator
-      .string()
-      .required()
-      .RoTLDPhoneNumber(),
+    fax: schemaValidator.string().RoTLDPhoneNumber(),
 
     // email[string:ascii] ] [mandatory] : Max Length: 128 chars.
     email: schemaValidator
       .string()
       .required()
-      .email()
-      .max(128, "utf8"),
+      .max(128, "utf8")
+      .email(),
 
     // person_type[string] [mandatory] : Pemited values: p|ap|nc|c|gi|pi|o
     person_type: schemaValidator
@@ -117,13 +114,24 @@ const inputSchema = schemaValidator
     // Mandatory for Commercial Romanian entities (where person_type is 'c').
     // Optional for foreigners or other Romanian entities.
     // Max Length: 40 chars.
-    registration_number: schemaValidator
-      .string()
-      .max(40, "utf8")
-      .when("person_type", {
+    registration_number: schemaValidator.when("country_code", {
+      is: "RO",
+      then: schemaValidator.when("person_type", {
         is: "c",
-        then: schemaValidator.required()
-      })
+        then: schemaValidator
+          .string()
+          .max(40, "utf8")
+          .required(),
+        otherwise: schemaValidator
+          .string()
+          .max(40, "utf8")
+          .optional()
+      }),
+      otherwise: schemaValidator
+        .string()
+        .max(40, "utf8")
+        .optional()
+    })
   });
 
 module.exports = inputSchema;
