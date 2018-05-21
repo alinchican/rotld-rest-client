@@ -5,6 +5,10 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
+test("should throw on empty argument", () => {
+  expect(() => schemaValidator.assert({})).toThrow();
+});
+
 test("should throw with invalid name variable type", () => {
   expect(() =>
     schemaValidator.assert(
@@ -145,6 +149,121 @@ test("should throw with invalid address1 (length)", () => {
           "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec dapibus, est at laoreet tempus, turpis leo interdum quam, et sed..",
         city: "Bucharest",
         state_province: "Bucharest",
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw with invalid city variable type", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        city: ["Bucharest"],
+        state_province: "Bucharest",
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw without city", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        state_province: "Bucharest",
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw with empty city", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        city: "",
+        state_province: "Bucharest",
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw with invalid city (length)", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        city: "Buchareeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest",
+        state_province: "Bucharest",
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw with invalid postal code variable type", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        city: "Bucharest",
+        state_province: "Bucharest",
+        postal_code: 23232,
+        country_code: "RO",
+        phone: "+40.755555555",
+        email: "contact@xn--yla.ro",
+        person_type: "o",
+        cnp_fiscal_code: "noway"
+      },
+      schema
+    )
+  ).toThrow();
+});
+
+test("should throw with invalid postal code (length)", () => {
+  expect(() =>
+    schemaValidator.assert(
+      {
+        name: "ș.ro",
+        address1: "Test address",
+        city: "Bucharest",
+        state_province: "Bucharest",
+        postal_code: "teeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeest",
         country_code: "RO",
         phone: "+40.755555555",
         email: "contact@xn--yla.ro",
