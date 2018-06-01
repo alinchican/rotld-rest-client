@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
@@ -13,7 +13,22 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid domain variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "xn--yla.ro",
+        authorization_key: "BPKerUnZM7vhy2A",
+        c_registrant: "cregistrant",
+        domain_password: "Aa1Aa1",
+        domain_period: 1
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domain (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -40,7 +55,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (punycode)", () => {
+test("should throw with invalid domain (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -54,7 +69,7 @@ test("should throw with invalid domain (punycode)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid password variable type", () => {
+test("should throw with invalid domain_password (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -69,7 +84,7 @@ test("should throw with invalid password variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid password length (min)", () => {
+test("should throw with invalid domain_password length (min length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -84,7 +99,7 @@ test("should throw with invalid password length (min)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid password length (max)", () => {
+test("should throw with invalid domain_password length (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -99,7 +114,7 @@ test("should throw with invalid password length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid password characters (without uppercase)", () => {
+test("should throw with invalid domain_password (without uppercase)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -114,7 +129,7 @@ test("should throw with invalid password characters (without uppercase)", () => 
   ).toThrow();
 });
 
-test("should throw with invalid password characters (without lowercase)", () => {
+test("should throw with invalid domain_password (without lowercase)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -129,7 +144,7 @@ test("should throw with invalid password characters (without lowercase)", () => 
   ).toThrow();
 });
 
-test("should throw with invalid password characters (without digit)", () => {
+test("should throw with invalid domain_password (without digit)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -144,7 +159,7 @@ test("should throw with invalid password characters (without digit)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid password characters (invalid character)", () => {
+test("should throw with invalid domain_password (invalid character)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -159,13 +174,27 @@ test("should throw with invalid password characters (invalid character)", () => 
   ).toThrow();
 });
 
-test("should throw with invalid domain (not a RoTLD domain)", () => {
+test("should not throw without c_registrant", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "xn--yla.ro",
+        authorization_key: "BPKerUnZM7vhy2A",
+        domain_period: 1
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid c_registrant (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
-        domain: "xn--yla.com",
+        domain: "xn--yla.ro",
+        reservation: true,
         authorization_key: "BPKerUnZM7vhy2A",
-        c_registrant: "cregistrant",
+        c_registrant: ["cregistrant"],
         domain_period: 1
       },
       schema
@@ -173,21 +202,7 @@ test("should throw with invalid domain (not a RoTLD domain)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (containing subdomain)", () => {
-  expect(() =>
-    schemaValidator.assert(
-      {
-        domain: "www.xn--yla.ro",
-        authorization_key: "BPKerUnZM7vhy2A",
-        c_registrant: "cregistrant",
-        domain_period: 1
-      },
-      schema
-    )
-  ).toThrow();
-});
-
-test("should throw without authorization key", () => {
+test("should throw without authorization_key", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -200,7 +215,7 @@ test("should throw without authorization key", () => {
   ).toThrow();
 });
 
-test("should throw with invalid authorization key variable type", () => {
+test("should throw with invalid authorization_key (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -214,7 +229,7 @@ test("should throw with invalid authorization key variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid authorization key (not RoTLD alphanum)", () => {
+test("should throw with invalid authorization_key (not RoTLD alphanum)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -228,7 +243,7 @@ test("should throw with invalid authorization key (not RoTLD alphanum)", () => {
   ).toThrow();
 });
 
-test("should throw without period", () => {
+test("should throw without domain_period", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -241,7 +256,7 @@ test("should throw without period", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number", () => {
+test("should throw with invalid domain_period (not integer)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -255,21 +270,7 @@ test("should throw with invalid period number", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number type", () => {
-  expect(() =>
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        authorization_key: "BPKȘer_UnZM7vhy2A",
-        c_registrant: "cregistrant",
-        domain_period: 2.2
-      },
-      schema
-    )
-  ).toThrow();
-});
-
-test("should throw with invalid period min", () => {
+test("should throw with invalid domain_period (min length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -283,7 +284,7 @@ test("should throw with invalid period min", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period max", () => {
+test("should throw with invalid domain_period (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -295,19 +296,4 @@ test("should throw with invalid period max", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        authorization_key: "BPKerUnZM7vhy2A",
-        c_registrant: "cregistrant",
-        domain_password: "Aa1Aa1",
-        domain_period: 1
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

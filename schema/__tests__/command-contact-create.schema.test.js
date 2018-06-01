@@ -9,7 +9,11 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({})).toThrow();
 });
 
-test("should throw with invalid name variable type", () => {
+test("should throw on invalid argument (wrong type)", () => {
+  expect(() => schemaValidator.assert([2], schema)).toThrow();
+});
+
+test("should throw with invalid name (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -46,7 +50,7 @@ test("should throw without name", () => {
   ).toThrow();
 });
 
-test("should throw with invalid name (length)", () => {
+test("should throw with invalid name (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -65,7 +69,7 @@ test("should throw with invalid name (length)", () => {
   ).toThrow();
 });
 
-test("should throw with name (invalid characters)", () => {
+test("should throw with invalid name (invalid characters)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -84,7 +88,7 @@ test("should throw with name (invalid characters)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address1 variable type", () => {
+test("should throw with invalid address1 (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -140,7 +144,7 @@ test("should throw with empty address1", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address1 (length)", () => {
+test("should throw with invalid address1 (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -160,7 +164,7 @@ test("should throw with invalid address1 (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid city variable type", () => {
+test("should throw with invalid city (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -216,7 +220,7 @@ test("should throw with empty city", () => {
   ).toThrow();
 });
 
-test("should throw with invalid city (length)", () => {
+test("should throw with invalid city (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -235,7 +239,7 @@ test("should throw with invalid city (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid postal code variable type", () => {
+test("should throw with invalid postal_code (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -255,7 +259,7 @@ test("should throw with invalid postal code variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid postal code (length)", () => {
+test("should throw with invalid postal_code (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -275,7 +279,7 @@ test("should throw with invalid postal code (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address2 variable type", () => {
+test("should throw with invalid address2 (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -295,7 +299,7 @@ test("should throw with invalid address2 variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address2 (length)", () => {
+test("should throw with invalid address2 (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -316,7 +320,7 @@ test("should throw with invalid address2 (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address3 variable type", () => {
+test("should throw with invalid address3 (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -336,7 +340,7 @@ test("should throw with invalid address3 variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid address3 (length)", () => {
+test("should throw with invalid address3 (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -357,7 +361,7 @@ test("should throw with invalid address3 (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid state province variable type", () => {
+test("should throw with invalid state_province (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -376,7 +380,7 @@ test("should throw with invalid state province variable type", () => {
   ).toThrow();
 });
 
-test("should throw without state province", () => {
+test("should throw without state_province", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -394,7 +398,7 @@ test("should throw without state province", () => {
   ).toThrow();
 });
 
-test("should throw with empty state province", () => {
+test("should throw with empty state_province", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -413,7 +417,7 @@ test("should throw with empty state province", () => {
   ).toThrow();
 });
 
-test("should throw with invalid state province length (max)", () => {
+test("should throw with invalid state_province (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -433,7 +437,7 @@ test("should throw with invalid state province length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid country code variable type", () => {
+test("should throw with invalid country_code (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -452,7 +456,7 @@ test("should throw with invalid country code variable type", () => {
   ).toThrow();
 });
 
-test("should throw without country code", () => {
+test("should throw without country_code", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -470,7 +474,7 @@ test("should throw without country code", () => {
   ).toThrow();
 });
 
-test("should throw with empty country code", () => {
+test("should throw with empty country_code", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -489,7 +493,7 @@ test("should throw with empty country code", () => {
   ).toThrow();
 });
 
-test("should throw with invalid country code (length)", () => {
+test("should throw with invalid country_code (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -508,7 +512,7 @@ test("should throw with invalid country code (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid country code (country)", () => {
+test("should throw with invalid country_code (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -527,7 +531,7 @@ test("should throw with invalid country code (country)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid phone variable type", () => {
+test("should throw with invalid phone (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -583,7 +587,7 @@ test("should throw with empty phone", () => {
   ).toThrow();
 });
 
-test("should throw with invalid phone (phone number format)", () => {
+test("should throw with invalid phone (wrong format)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -602,7 +606,7 @@ test("should throw with invalid phone (phone number format)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid fax variable type", () => {
+test("should throw with invalid fax (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -622,7 +626,7 @@ test("should throw with invalid fax variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid fax (phone number format)", () => {
+test("should throw with invalid fax (wrong format)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -642,7 +646,7 @@ test("should throw with invalid fax (phone number format)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid email variable type", () => {
+test("should throw with invalid email (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -698,7 +702,7 @@ test("should throw with empty email", () => {
   ).toThrow();
 });
 
-test("should throw with invalid email (length)", () => {
+test("should throw with invalid email (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -718,7 +722,7 @@ test("should throw with invalid email (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid email (email format)", () => {
+test("should throw with invalid email (wrong format)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -737,7 +741,7 @@ test("should throw with invalid email (email format)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid person type variable type", () => {
+test("should throw with invalid person_type (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -756,7 +760,7 @@ test("should throw with invalid person type variable type", () => {
   ).toThrow();
 });
 
-test("should throw without person type", () => {
+test("should throw without person_type", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -774,7 +778,7 @@ test("should throw without person type", () => {
   ).toThrow();
 });
 
-test("should throw with empty person type", () => {
+test("should throw with empty person_type", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -793,7 +797,7 @@ test("should throw with empty person type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid person type", () => {
+test("should throw with invalid person_type (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -812,7 +816,7 @@ test("should throw with invalid person type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid cnp fiscal code variable type", () => {
+test("should throw with invalid cnp_fiscal_code (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -831,7 +835,7 @@ test("should throw with invalid cnp fiscal code variable type", () => {
   ).toThrow();
 });
 
-test("should throw without cnp fiscal code when country is RO", () => {
+test("should throw without cnp_fiscal_code (country is RO)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -849,7 +853,7 @@ test("should throw without cnp fiscal code when country is RO", () => {
   ).toThrow();
 });
 
-test("should not throw without cnp fiscal code when country is not RO", () => {
+test("should not throw without cnp_fiscal_code (country is not RO)", () => {
   expect(
     schemaValidator.assert(
       {
@@ -867,7 +871,7 @@ test("should not throw without cnp fiscal code when country is not RO", () => {
   ).toBeUndefined();
 });
 
-test("should throw with invalid cnp fiscal code length (min)", () => {
+test("should throw with invalid cnp_fiscal_code (min length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -886,7 +890,7 @@ test("should throw with invalid cnp fiscal code length (min)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid cnp fiscal code length (max)", () => {
+test("should throw with invalid cnp_fiscal_code (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -905,7 +909,7 @@ test("should throw with invalid cnp fiscal code length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid registration number variable type", () => {
+test("should throw with invalid registration_number (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -925,7 +929,7 @@ test("should throw with invalid registration number variable type", () => {
   ).toThrow();
 });
 
-test("should throw without registration number when country code is RO and person type is c", () => {
+test("should throw without registration_number (country is RO, person_type is c)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -944,7 +948,7 @@ test("should throw without registration number when country code is RO and perso
   ).toThrow();
 });
 
-test("shouldn't throw without registration number when country code is RO and person type is not c", () => {
+test("shouldn't throw without registration_number (country is RO, person_type is not c)", () => {
   expect(
     schemaValidator.assert(
       {
@@ -963,7 +967,7 @@ test("shouldn't throw without registration number when country code is RO and pe
   ).toBeUndefined();
 });
 
-test("shouldn't throw without registration number when country code is not RO", () => {
+test("shouldn't throw without registration_number (country_code is not RO)", () => {
   expect(
     schemaValidator.assert(
       {
@@ -982,7 +986,7 @@ test("shouldn't throw without registration number when country code is not RO", 
   ).toBeUndefined();
 });
 
-test("should throw with invalid registration number length (max)", () => {
+test("should throw with invalid registration_number (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -1002,7 +1006,7 @@ test("should throw with invalid registration number length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with empty registration number", () => {
+test("should throw with empty registration_number", () => {
   expect(() =>
     schemaValidator.assert(
       {

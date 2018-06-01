@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert("", schema)).toThrow();
 });
 
-test("should throw with invalid argument", () => {
+test("should throw with invalid argument (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(["test", "test", "staging"], schema)
   ).toThrow();
@@ -13,6 +13,23 @@ test("should throw with invalid argument", () => {
 
 test("should throw with empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
+});
+
+test("should be undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        username: "test",
+        password: "test",
+        environment: "test",
+        allowUnsecure: true,
+        localValidation: false,
+        format: "json",
+        language: "en"
+      },
+      schema
+    )
+  ).toBeUndefined();
 });
 
 test("should throw without username", () => {
@@ -51,7 +68,7 @@ test("should throw without environment", () => {
   ).toThrow();
 });
 
-test("should throw with invalid environment", () => {
+test("should throw with invalid environment (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -64,7 +81,7 @@ test("should throw with invalid environment", () => {
   ).toThrow();
 });
 
-test("should throw with invalid allow unsecure", () => {
+test("should throw with invalid allowUnsecure (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -78,7 +95,7 @@ test("should throw with invalid allow unsecure", () => {
   ).toThrow();
 });
 
-test("should throw with invalid pre validate", () => {
+test("should throw with invalid localValidation (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -92,7 +109,7 @@ test("should throw with invalid pre validate", () => {
   ).toThrow();
 });
 
-test("should throw with invalid format", () => {
+test("should throw with invalid format (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -106,7 +123,7 @@ test("should throw with invalid format", () => {
   ).toThrow();
 });
 
-test("should throw with invalid language", () => {
+test("should throw with invalid language (wrong format)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -118,21 +135,4 @@ test("should throw with invalid language", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should be undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        username: "test",
-        password: "test",
-        environment: "test",
-        allowUnsecure: true,
-        localValidation: false,
-        format: "json",
-        language: "en"
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

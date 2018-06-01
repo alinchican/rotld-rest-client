@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
@@ -13,7 +13,19 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid domain variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "xn--yla.ro",
+        authorization_key: "BPKerUnZM7vhy2A"
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domain (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -36,7 +48,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (punycode)", () => {
+test("should throw with invalid domain (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -72,7 +84,7 @@ test("should throw with invalid domain (containing subdomain)", () => {
   ).toThrow();
 });
 
-test("should throw without authorization key", () => {
+test("should throw without authorization_key", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -83,7 +95,7 @@ test("should throw without authorization key", () => {
   ).toThrow();
 });
 
-test("should throw with invalid authorization key variable type", () => {
+test("should throw with invalid authorization_key (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -95,7 +107,7 @@ test("should throw with invalid authorization key variable type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid authorization key (not RoTLD alphanum)", () => {
+test("should throw with invalid authorization_key (not a RoTLD alphanum)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -105,16 +117,4 @@ test("should throw with invalid authorization key (not RoTLD alphanum)", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        authorization_key: "BPKerUnZM7vhy2A"
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

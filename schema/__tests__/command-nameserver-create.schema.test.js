@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
@@ -13,7 +13,19 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid nameserver variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        nameserver: "ns1.xn--yla.ro",
+        ips: "192.168.0.1"
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid nameserver (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -36,7 +48,7 @@ test("should throw without nameserver", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameserver (punycode)", () => {
+test("should throw with invalid nameserver (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -48,7 +60,7 @@ test("should throw with invalid nameserver (punycode)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameserver (port)", () => {
+test("should throw with invalid nameserver (containing port)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -71,7 +83,7 @@ test("should throw without ips", () => {
   ).toThrow();
 });
 
-test("should throw with invalid ips variable type", () => {
+test("should throw with invalid ips (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -95,7 +107,7 @@ test("should throw with empty ips", () => {
   ).toThrow();
 });
 
-test("should throw with too many ips", () => {
+test("should throw with invalid ips (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -107,7 +119,7 @@ test("should throw with too many ips", () => {
   ).toThrow();
 });
 
-test("should throw with invalid ips", () => {
+test("should throw with invalid ips (wrong format)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -117,16 +129,4 @@ test("should throw with invalid ips", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        nameserver: "ns1.xn--yla.ro",
-        ips: "192.168.0.1"
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

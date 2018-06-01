@@ -9,11 +9,26 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert([], schema)).toThrow();
 });
 
-test("should throw with invalid domain variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "xn--yla.ro",
+        keytag: 65534,
+        alg: 3,
+        digest_type: 1,
+        digest: "  1111111111111111111111111111111111111111"
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domain (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -42,7 +57,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (punycode)", () => {
+test("should throw with invalid domain (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -57,7 +72,7 @@ test("should throw with invalid domain (punycode)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid keytag variable type", () => {
+test("should throw with invalid keytag (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -86,7 +101,7 @@ test("should throw without keytag", () => {
   ).toThrow();
 });
 
-test("should throw with invalid keytag (min)", () => {
+test("should throw with invalid keytag (min length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -101,7 +116,7 @@ test("should throw with invalid keytag (min)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid keytag (max)", () => {
+test("should throw with invalid keytag (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -116,7 +131,7 @@ test("should throw with invalid keytag (max)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid alg variable type", () => {
+test("should throw with invalid alg (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -145,7 +160,7 @@ test("should throw without alg", () => {
   ).toThrow();
 });
 
-test("should throw with invalid alg", () => {
+test("should throw with invalid alg (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -160,7 +175,7 @@ test("should throw with invalid alg", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest type variable type", () => {
+test("should throw with invalid digest_type (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -175,7 +190,7 @@ test("should throw with invalid digest type variable type", () => {
   ).toThrow();
 });
 
-test("should throw without digest type", () => {
+test("should throw without digest_type", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -189,7 +204,7 @@ test("should throw without digest type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest type", () => {
+test("should throw with invalid digest (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -204,7 +219,7 @@ test("should throw with invalid digest type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest length (max, digest_type 1)", () => {
+test("should throw with invalid digest (max length, digest_type is 1)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -219,7 +234,7 @@ test("should throw with invalid digest length (max, digest_type 1)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest length (min, digest_type 1)", () => {
+test("should throw with invalid digest (min length, digest_type is 1)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -234,7 +249,7 @@ test("should throw with invalid digest length (min, digest_type 1)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest length (max, digest_type 2)", () => {
+test("should throw with invalid digest (max length, digest_type is 2)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -250,7 +265,7 @@ test("should throw with invalid digest length (max, digest_type 2)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid digest length (min, digest_type 2)", () => {
+test("should throw with invalid digest (min length, digest_type is 2)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -263,19 +278,4 @@ test("should throw with invalid digest length (min, digest_type 2)", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        keytag: 65534,
-        alg: 3,
-        digest_type: 1,
-        digest: "  1111111111111111111111111111111111111111"
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

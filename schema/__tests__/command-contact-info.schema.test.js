@@ -9,14 +9,14 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({})).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(["registrantid"], schema)).toThrow();
 });
 
-test("should throw with invalid registrant id variable type", () => {
+test("should throw with invalid cid (wrong type)", () => {
   expect(() => schemaValidator.assert({ cid: 2 }, schema)).toThrow();
 });
 
-test("should throw without empty registrant id ", () => {
+test("should throw without cid", () => {
   expect(() => schemaValidator.assert({ cid: "" }, schema)).toThrow();
 });

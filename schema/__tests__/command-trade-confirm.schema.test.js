@@ -9,22 +9,22 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert("tradeid", schema)).toThrow();
 });
 
-test("should throw with missing trade id number", () => {
+test("should return undefined", () => {
+  expect(schemaValidator.assert({ tid: "2" }, schema)).toBeUndefined();
+});
+
+test("should throw without tid", () => {
   expect(() => schemaValidator.assert({ tid: "" }, schema)).toThrow();
 });
 
-test("should throw with invalid trade id variable type", () => {
+test("should throw with invalid tid (wrong type)", () => {
   expect(() => schemaValidator.assert({ tid: "tradeid" }, schema)).toThrow();
 });
 
-test("should throw with invalid trade id number", () => {
+test("should throw with invalid tid (not integer)", () => {
   expect(() => schemaValidator.assert({ tid: "2.2" }, schema)).toThrow();
-});
-
-test("should return true on valid trade id number", () => {
-  expect(schemaValidator.assert({ tid: "2" }, schema)).toBeUndefined();
 });

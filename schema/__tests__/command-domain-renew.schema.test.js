@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
@@ -13,7 +13,19 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid domain variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "xn--yla.ro",
+        domain_period: 1
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domain (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -36,7 +48,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (punycode)", () => {
+test("should throw with invalid domain (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -72,7 +84,7 @@ test("should throw with invalid domain (containing subdomain)", () => {
   ).toThrow();
 });
 
-test("should throw without period", () => {
+test("should throw without domain_period", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -83,7 +95,7 @@ test("should throw without period", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number", () => {
+test("should throw with invalid domain_period (not integer)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -95,19 +107,7 @@ test("should throw with invalid period number", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number type", () => {
-  expect(() =>
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        domain_period: 2.2
-      },
-      schema
-    )
-  ).toThrow();
-});
-
-test("should throw with invalid period min", () => {
+test("should throw with invalid domain_period (min value)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -119,7 +119,7 @@ test("should throw with invalid period min", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period max", () => {
+test("should throw with invalid domain_period (max value)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -129,16 +129,4 @@ test("should throw with invalid period max", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domain: "xn--yla.ro",
-        domain_period: 1
-      },
-      schema
-    )
-  ).toBeUndefined();
 });

@@ -9,7 +9,11 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid cid variable type", () => {
+test("should throw on invalid argument (wrong type)", () => {
+  expect(() => schemaValidator.assert([2], schema)).toThrow();
+});
+
+test("should throw with invalid cid (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -47,7 +51,7 @@ test("should throw with empty cid", () => {
   ).toThrow();
 });
 
-test("should throw with invalid person type variable type", () => {
+test("should throw with invalid person_type (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -60,7 +64,7 @@ test("should throw with invalid person type variable type", () => {
   ).toThrow();
 });
 
-test("should throw without person type", () => {
+test("should throw without person_type", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -72,7 +76,7 @@ test("should throw without person type", () => {
   ).toThrow();
 });
 
-test("should throw with empty person type", () => {
+test("should throw with empty person_type", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -85,7 +89,7 @@ test("should throw with empty person type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid person type", () => {
+test("should throw with invalid person_type (non-existent option)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -98,7 +102,7 @@ test("should throw with invalid person type", () => {
   ).toThrow();
 });
 
-test("should throw with invalid cnp fiscal code variable type", () => {
+test("should throw with invalid cnp_fiscal_code (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -111,7 +115,7 @@ test("should throw with invalid cnp fiscal code variable type", () => {
   ).toThrow();
 });
 
-test("should not throw without cnp fiscal code", () => {
+test("should not throw without cnp_fiscal_code", () => {
   expect(
     schemaValidator.assert(
       {
@@ -123,7 +127,7 @@ test("should not throw without cnp fiscal code", () => {
   ).toBeUndefined();
 });
 
-test("should throw with invalid cnp fiscal code length (min)", () => {
+test("should throw with invalid cnp_fiscal_code (min length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -136,7 +140,7 @@ test("should throw with invalid cnp fiscal code length (min)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid cnp fiscal code length (max)", () => {
+test("should throw with invalid cnp_fiscal_code (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -149,7 +153,7 @@ test("should throw with invalid cnp fiscal code length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid registration number variable type", () => {
+test("should throw with invalid registration_number (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -163,7 +167,7 @@ test("should throw with invalid registration number variable type", () => {
   ).toThrow();
 });
 
-test("shouldn't throw without registration number", () => {
+test("shouldn't throw without registration_number", () => {
   expect(
     schemaValidator.assert(
       {
@@ -176,7 +180,7 @@ test("shouldn't throw without registration number", () => {
   ).toBeUndefined();
 });
 
-test("should throw with invalid registration number length (max)", () => {
+test("should throw with invalid registration_number (max length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -190,7 +194,7 @@ test("should throw with invalid registration number length (max)", () => {
   ).toThrow();
 });
 
-test("should throw with empty registration number", () => {
+test("should throw with empty registration_number", () => {
   expect(() =>
     schemaValidator.assert(
       {

@@ -5,7 +5,7 @@ test("should throw without argument", () => {
   expect(() => schemaValidator.assert(undefined, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert(1, schema)).toThrow();
 });
 
@@ -13,7 +13,19 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw with invalid domain variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domain: "www.xn--yla.ro",
+        nameservers: "ns1.xn--yla.ro"
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domain (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -36,7 +48,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (punycode)", () => {
+test("should throw with invalid domain (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -72,7 +84,7 @@ test("should throw with invalid domain (containing subdomain)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameservers variable type", () => {
+test("should throw with invalid nameservers (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -95,7 +107,7 @@ test("should throw without nameservers", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameservers (length)", () => {
+test("should throw with invalid nameservers (wrong length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -108,7 +120,7 @@ test("should throw with invalid nameservers (length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameservers (punycode)", () => {
+test("should throw with invalid nameservers (containing punycode)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -120,7 +132,7 @@ test("should throw with invalid nameservers (punycode)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid nameservers (port)", () => {
+test("should throw with invalid nameservers (containing port)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -138,18 +150,6 @@ test("should return undefined with empty nameservers ", () => {
       {
         domain: "www.xn--yla.ro",
         nameservers: ""
-      },
-      schema
-    )
-  ).toBeUndefined();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domain: "www.xn--yla.ro",
-        nameservers: "ns1.xn--yla.ro"
       },
       schema
     )

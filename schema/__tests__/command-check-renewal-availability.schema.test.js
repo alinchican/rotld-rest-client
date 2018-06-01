@@ -9,11 +9,23 @@ test("should throw on empty argument", () => {
   expect(() => schemaValidator.assert({}, schema)).toThrow();
 });
 
-test("should throw on invalid argument", () => {
+test("should throw on invalid argument (wrong type)", () => {
   expect(() => schemaValidator.assert([2], schema)).toThrow();
 });
 
-test("should throw with invalid domains list variable type", () => {
+test("should return undefined", () => {
+  expect(
+    schemaValidator.assert(
+      {
+        domains_list: "xn--yla.www.ro,xn--bicoi-rwa.ro",
+        period: 1
+      },
+      schema
+    )
+  ).toBeUndefined();
+});
+
+test("should throw with invalid domains_list (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -25,7 +37,7 @@ test("should throw with invalid domains list variable type", () => {
   ).toThrow();
 });
 
-test("should throw without domains list", () => {
+test("should throw without domains_list", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -36,7 +48,7 @@ test("should throw without domains list", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domains list containing non-ascii domain names", () => {
+test("should throw with invalid domains_list (non-ascii domain names)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -48,7 +60,7 @@ test("should throw with invalid domains list containing non-ascii domain names",
   ).toThrow();
 });
 
-test("should throw with invalid domains list containing too many domains", () => {
+test("should throw with invalid domain_list (domains length)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -61,7 +73,7 @@ test("should throw with invalid domains list containing too many domains", () =>
   ).toThrow();
 });
 
-test("should throw with invalid domains list containing domain names with subdomains", () => {
+test("should throw with invalid domains_list (domain names with subdomains)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -73,7 +85,7 @@ test("should throw with invalid domains list containing domain names with subdom
   ).toThrow();
 });
 
-test("should return undefined with valid domains list", () => {
+test("should return undefined with valid domains_list", () => {
   expect(
     schemaValidator.assert(
       {
@@ -85,7 +97,7 @@ test("should return undefined with valid domains list", () => {
   ).toBeUndefined();
 });
 
-test("should throw with invalid period variable type", () => {
+test("should throw with invalid period (wrong type)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -108,7 +120,7 @@ test("should throw without period", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number", () => {
+test("should throw with invalid period (not integer)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -120,19 +132,7 @@ test("should throw with invalid period number", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period number type", () => {
-  expect(() =>
-    schemaValidator.assert(
-      {
-        domains_list: "xn--yla.ro,xn--bicoi-rwa.ro",
-        period: 2.2
-      },
-      schema
-    )
-  ).toThrow();
-});
-
-test("should throw with invalid period min", () => {
+test("should throw with invalid period (min value)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -144,7 +144,7 @@ test("should throw with invalid period min", () => {
   ).toThrow();
 });
 
-test("should throw with invalid period max", () => {
+test("should throw with invalid period (max value)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -154,16 +154,4 @@ test("should throw with invalid period max", () => {
       schema
     )
   ).toThrow();
-});
-
-test("should return undefined", () => {
-  expect(
-    schemaValidator.assert(
-      {
-        domains_list: "xn--yla.www.ro,xn--bicoi-rwa.ro",
-        period: 1
-      },
-      schema
-    )
-  ).toBeUndefined();
 });
