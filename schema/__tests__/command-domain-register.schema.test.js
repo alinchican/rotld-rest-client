@@ -55,7 +55,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (containing punycode)", () => {
+test("should throw with invalid domain (non-ascii)", () => {
   expect(() =>
     schemaValidator.assert(
       {
@@ -138,8 +138,8 @@ test("should throw with invalid reservation (non-existent option)", () => {
   ).toThrow();
 });
 
-test("should not throw without c_registrant", () => {
-  expect(
+test("should throw without c_registrant", () => {
+  expect(() =>
     schemaValidator.assert(
       {
         domain: "xn--yla.ro",
@@ -147,7 +147,7 @@ test("should not throw without c_registrant", () => {
       },
       schema
     )
-  ).toBeUndefined();
+  ).toThrow();
 });
 
 test("should throw with invalid c_registrant (wrong type)", () => {

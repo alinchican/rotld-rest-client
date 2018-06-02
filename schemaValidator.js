@@ -1,5 +1,5 @@
 const Joi = require("joi");
-const isRoTLDDomain = require("rotld-toolbox/isRoTLDDomain");
+const getRoTLDWhoisDomainLabels = require("rotld-toolbox/getRoTLDWhoisDomainLabels");
 const isValidRoTLDPersonType = require("./isValidRoTLDPersonType");
 const isValidRoTLDInputCharacters = require("./isValidRoTLDInputCharacters");
 const isValidRoTLDCountryCode = require("./isValidRoTLDCountryCode");
@@ -13,8 +13,11 @@ const schemaValidator = Joi.extend(joi => ({
     RoTLDCountryCode: "needs to have a valid RoTLD phone number format",
     RoTLDValidInput: "needs to have valid RoTLD input characters",
     RoTLDDomain: "needs to be a valid RoTLD domain",
-    RoTLDDomainInvalid: "needs to be a valid domain",
+    RoTLDDomainSubdomain:
+      "needs to be a valid RoTLD domain (without subdomain)",
     RoTLDDomainsList: "needs to be a valid RoTLD domain list",
+    RoTLDDomainsListSubdomains:
+      "needs to be a valid RoTLD domain list (without subdomains)",
     RoTLDIpList: "needs to be a valid ip list",
     RoTLDNameserversList: "needs to be a valid nameserver list",
     RoTLDAlphanum: "needs to be a valid RoTLD alphanum",
@@ -96,8 +99,12 @@ const schemaValidator = Joi.extend(joi => ({
     {
       name: "RoTLDDomain",
       validate(params, value, state, options) {
+        const domainSchema = Joi.string().hostname();
+
         try {
-          if (!isRoTLDDomain(value)) {
+          const isValidHDomain = domainSchema.validate(value);
+
+          if (isValidHDomain.error) {
             return this.createError(
               "string.RoTLDDomain",
               { value: value },
@@ -105,9 +112,20 @@ const schemaValidator = Joi.extend(joi => ({
               options
             );
           }
+
+          const domainLabels = getRoTLDWhoisDomainLabels(value);
+
+          if (domainLabels.subdomain) {
+            return this.createError(
+              "string.RoTLDDomainSubdomain",
+              { value: value },
+              state,
+              options
+            );
+          }
         } catch (error) {
           return this.createError(
-            "string.RoTLDDomainInvalid",
+            "string.RoTLDDomain",
             { value: value },
             state,
             options
@@ -121,11 +139,39 @@ const schemaValidator = Joi.extend(joi => ({
       name: "RoTLDDomainsList",
       validate(params, value, state, options) {
         const domainsList = value.split(",");
+        const domainSchema = Joi.string().hostname();
+        let isValidDomains = true;
+        let isValidDomainsWithoutSubdomain = true;
 
-        // TODO
-        if (domainsList.length > 6) {
+        domainsList.forEach(domain => {
+          try {
+            const isValidHDomain = domainSchema.validate(domain);
+
+            if (isValidHDomain.error) {
+              isValidDomains = false;
+            }
+            const domainLabels = getRoTLDWhoisDomainLabels(domain);
+
+            if (domainLabels.subdomain) {
+              isValidDomainsWithoutSubdomain = false;
+            }
+          } catch (error) {
+            isValidDomains = false;
+          }
+        });
+
+        if (!isValidDomains) {
           return this.createError(
             "string.RoTLDDomainsList",
+            { value: value },
+            state,
+            options
+          );
+        }
+
+        if (!isValidDomainsWithoutSubdomain) {
+          return this.createError(
+            "string.RoTLDDomainsListSubdomain",
             { value: value },
             state,
             options
@@ -169,16 +215,28 @@ const schemaValidator = Joi.extend(joi => ({
     {
       name: "RoTLDNameserversList",
       validate(params, value, state, options) {
-        const domainsList = value.split(",");
-        let isValid = true;
+        const nameserversList = value.split(",");
+        const nameserverSchema = Joi.string().hostname();
+        let isValidNameservers = true;
 
-        domainsList.forEach(domain => {
-          if (!isRoTLDDomain(domain)) {
-            isValid = false;
+        if (nameserversList.length > 6) {
+          return this.createError(
+            "string.RoTLDNameserversListLength",
+            { value: value },
+            state,
+            options
+          );
+        }
+
+        nameserversList.forEach(domain => {
+          const isValidHostname = nameserverSchema.validate(domain);
+
+          if (isValidHostname.error) {
+            isValidNameservers = false;
           }
         });
 
-        if (!isValid) {
+        if (!isValidNameservers) {
           return this.createError(
             "string.RoTLDNameserversList",
             { value: value },

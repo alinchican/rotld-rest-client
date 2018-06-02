@@ -34,3 +34,7 @@ test("should throw on invalid domain (not a RoTLD domain)", () => {
     schemaValidator.assert({ domain: "xn--yla.com" }, schema)
   ).toThrow();
 });
+
+test("should throw on invalid domain (non-ascii)", () => {
+  expect(() => schemaValidator.assert({ domain: "ș.ro" }, schema)).toThrow();
+});

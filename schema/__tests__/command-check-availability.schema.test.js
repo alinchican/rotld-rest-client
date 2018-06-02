@@ -14,7 +14,9 @@ test("should throw on invalid argument (wrong type)", () => {
 });
 
 test("should return undefined", () => {
-  expect(schemaValidator.assert({ domain: "ș.ro" }, schema)).toBeUndefined();
+  expect(
+    schemaValidator.assert({ domain: "xn--yla.ro" }, schema)
+  ).toBeUndefined();
 });
 
 test("should throw on invalid domain (wrong type)", () => {
@@ -29,4 +31,8 @@ test("should throw on invalid domain (not a RoTLD domain)", () => {
   expect(() =>
     schemaValidator.assert({ domain: "xn--yla.com" }, schema)
   ).toThrow();
+});
+
+test("should throw on invalid domain (non-ascii)", () => {
+  expect(() => schemaValidator.assert({ domain: "ș.ro" }, schema)).toThrow();
 });

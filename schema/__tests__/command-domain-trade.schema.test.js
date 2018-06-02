@@ -174,8 +174,8 @@ test("should throw with invalid domain_password (invalid character)", () => {
   ).toThrow();
 });
 
-test("should not throw without c_registrant", () => {
-  expect(
+test("should throw without c_registrant", () => {
+  expect(() =>
     schemaValidator.assert(
       {
         domain: "xn--yla.ro",
@@ -184,7 +184,7 @@ test("should not throw without c_registrant", () => {
       },
       schema
     )
-  ).toBeUndefined();
+  ).toThrow();
 });
 
 test("should throw with invalid c_registrant (wrong type)", () => {
@@ -229,7 +229,7 @@ test("should throw with invalid authorization_key (wrong type)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid authorization_key (not RoTLD alphanum)", () => {
+test("should throw with invalid authorization_key (not a RoTLD alphanum)", () => {
   expect(() =>
     schemaValidator.assert(
       {

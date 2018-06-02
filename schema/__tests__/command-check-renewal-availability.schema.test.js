@@ -60,12 +60,11 @@ test("should throw with invalid domains_list (non-ascii domain names)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain_list (domains length)", () => {
+test("should throw with invalid domains_list (domain names with subdomains)", () => {
   expect(() =>
     schemaValidator.assert(
       {
-        domains_list:
-          "xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro,xn--yla.ro,xn--bicoi-rwa.ro",
+        domains_list: "www.xn--yla.ro",
         period: 1
       },
       schema
@@ -73,11 +72,11 @@ test("should throw with invalid domain_list (domains length)", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domains_list (domain names with subdomains)", () => {
+test("should throw with invalid domains_list (domain names invalid)", () => {
   expect(() =>
     schemaValidator.assert(
       {
-        domains_list: "www.ș.ro,băicoi.ro",
+        domains_list: "xn--yla",
         period: 1
       },
       schema

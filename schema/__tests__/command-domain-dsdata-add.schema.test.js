@@ -57,7 +57,7 @@ test("should throw without domain", () => {
   ).toThrow();
 });
 
-test("should throw with invalid domain (containing punycode)", () => {
+test("should throw with invalid domain (non-ascii)", () => {
   expect(() =>
     schemaValidator.assert(
       {
