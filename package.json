@@ -23,7 +23,7 @@
     "eslint-plugin-node": "^7.0.0",
     "eslint-plugin-prettier": "^3.0.0",
     "jest": "^23.6.0",
-    "prettier": "^1.12.1"
+    "prettier": "^1.14.3"
   },
   "repository": "alinchican/rotld-rest-client",
   "bugs": "https://github.com/alinchican/rotld-rest-client/issues",
