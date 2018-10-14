@@ -12,17 +12,17 @@
     "prepack": "yarn test"
   },
   "dependencies": {
-    "joi": "^13.3.0",
+    "joi": "^13.7.0",
     "regenerate": "^1.3.3",
     "rotld-toolbox": "^3.0.0"
   },
   "devDependencies": {
-    "eslint": "^5.0.0",
+    "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.0.1",
-    "eslint-plugin-jest": "^21.15.1",
+    "eslint-plugin-jest": "^21.24.2",
     "eslint-plugin-node": "^7.0.0",
-    "eslint-plugin-prettier": "^2.6.0",
-    "jest": "^22.4.4",
+    "eslint-plugin-prettier": "^3.0.0",
+    "jest": "^23.6.0",
     "prettier": "^1.12.1"
   },
   "repository": "alinchican/rotld-rest-client",
