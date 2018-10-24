@@ -2,6 +2,6 @@
 
 REST client for RoTLD (Romania Top Level Domain) REST API.
 
-Based on documentation found at https://documentatie.rotld.ro/.
+Based on former documentation found at https://documentatie.rotld.ro/.
 
-**Work in progress!**
+**This is a work in progress! Documentation isn't available anymore. API request functionality needs to be added.**
